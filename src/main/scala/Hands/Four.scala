@@ -1,6 +1,7 @@
 package Hands
 
 import Game.StackOfCards
+import Hands.ExOnePair.getInSameSuit
 
 class Four (four: Int, otherRanks: List[Int]) extends OnePair(pair = four, otherRanks: List[Int]) {
   override def getValue: Int = 7
@@ -9,12 +10,12 @@ class Four (four: Int, otherRanks: List[Int]) extends OnePair(pair = four, other
 
 object ExFour {
 
-  def unapply(cards: StackOfCards) = {
-    val four = cards.asMulti.find(c => c.suits.length == 4).orNull
-    if(four != null) {
-      val maxCard = cards.asMulti.filter(c => c.suits.length == 4).max
-      Some(new Four(four.rank, List(maxCard.rank)))
-    } else None
+  def unapply(cards: StackOfCards): Option[Hand] = {
+    val four = getInSameSuit(cards, 4)
+
+    if(four.isDefined) Some(new OnePair(four.get._1, four.get._2))
+    else None
+
   }
 
 }

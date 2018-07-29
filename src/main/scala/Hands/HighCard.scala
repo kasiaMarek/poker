@@ -25,8 +25,8 @@ class HighCard(cardRanks: List[Int]) extends Hand {
   }
 }
 
-object ExHighCard {
-
-  def unapply(cards: StackOfCards) = Some(new HighCard(cards.asList.slice(0,5).map(c => c.rank)))
-
-}
+//object ExHighCard {
+//
+//  def unapply(cards: StackOfCards) = Some(new HighCard(cards.asList.slice(0,5).map(c => c.rank)))
+//
+//}

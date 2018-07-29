@@ -1,52 +1,26 @@
 package Game
 
-import Cards.{Card, Suit}
+import Cards.Card
 import Hands._
 
 object CardsInGame {
 
 
-  private def findThreeCards(): MultiColorCard = null
+  def FindBestHand(initCards: List[Card]): Hand = {
+    val cards = new StackOfCards(initCards)
 
-  private def findTwoCards(): MultiColorCard = null
+    val hand = cards match {
+      case ExStraightFlush(c) => Some(c)
+      case ExFour(c) => Some(c)
+      case ExFull(c) => Some(c)
+      case ExStraight(c) => Some(c)
+      case ExThree(c) => Some(c)
+      case ExTwoPair(c) => Some(c)
+      case ExOnePair(c) => Some(c)
+     // case ExHighCard(c) => Some(c)
+      case _ => Some(new HighCard(cards.asList.slice(0,5).map(c => c.rank)))
+    }
 
- // --------------------------------------
-
-
-
-  private def findFull(): Hand = null
-
-  private def findStraight(): Hand = null
-
-  private def findThree(): Hand = null
-
-  private def findTwoPair(): Hand = null
-
-  private def findPair(): Hand = null
-
-
-//--------------------------------------------------------------
-
-//  def FindBestHand(initCards: List[Card]): Hand = {
-//    val cards = new StackOfCards(initCards)
-//     // check for color
-//
-//    val straightList = findStraights(cards)
-//
-//    val priorityList: List[Hand] =
-//      List(
-//          findStraightFlush(cards, suit, straightList),
-//          findFour(cards),
-//          findFull(),
-//          findFlush(initCardsSorted, suit),
-//          findStraight(),
-//          findThree(),
-//          findTwoPair(),
-//          findPair(),
-//          findHighestCard(initCardsSorted)
-//      )
-//
-//    priorityList.find(h => h != null).get
-//
-//  }
+    hand.get
+  }
 }
